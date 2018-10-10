@@ -38,9 +38,9 @@ public class ConnectionPool {
 
                 for (int i = 0; i < 10; i++) {
                     Connection conn = DriverManager.getConnection(
-                            "jdbc:mysql://localhost:3306/testdb ",
-                            "",
-                            ""
+                            "jdbc:mysql://10.0.0.184:3306/test",
+                            "root",
+                            "gt123"
                     );
 
                     connectionQueue.push(conn);
