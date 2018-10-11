@@ -86,6 +86,8 @@ public class PersistWordCount {
                          */
                         Connection conn = ConnectionPool.getConnections();
 
+                        System.out.println("88899999" + conn);
+
                         /**
                          * 遍历partition中的数据, 使用一个连接插入数据库
                          */
@@ -93,8 +95,8 @@ public class PersistWordCount {
                         while (wordCounts.hasNext()) {
                             wordcount = wordCounts.next();
 
-                            String sql = "insert into wordcount(word, count) values(" + wordcount._1
-                                    + "," + wordcount._2 + ")";
+                            String sql = "insert into wordcount(word, count) values(" + "'" + wordcount._1
+                                    + "','" + wordcount._2 + "')";
 
                             Statement stmt = conn.createStatement();
                             stmt.executeUpdate(sql);

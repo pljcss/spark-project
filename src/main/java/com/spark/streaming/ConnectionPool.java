@@ -38,7 +38,8 @@ public class ConnectionPool {
 
                 for (int i = 0; i < 10; i++) {
                     Connection conn = DriverManager.getConnection(
-                            "jdbc:mysql://10.0.0.184:3306/test",
+                            // 10.0.0.184数据库不允许这个ip访问, 所以需要使用localhost
+                            "jdbc:mysql://localhost:3306/test",
                             "root",
                             "gt123"
                     );
