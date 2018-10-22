@@ -1,4 +1,4 @@
-package com.streaming
+package com.spark.streaming
 
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.{DataFrame, Row}
