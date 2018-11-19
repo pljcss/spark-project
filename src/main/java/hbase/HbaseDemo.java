@@ -30,30 +30,9 @@ public class HbaseDemo {
 
     public static void main(String[] args) throws Exception {
         queryAll("smartcommunity");
-//        queryByRowId("smartcommunity", "\\x7F\\xFF\\xFE\\x9D\\xD6y\\xEE1");
+        System.out.println("------");
+        queryByRowId("smartcommunity", "ss");
     }
-
-
-    /**
-     * 查询所有数据
-     */
-//    public static void queryAll1(String tableName) throws Exception {
-//        Table table = connection.getTable(TableName.valueOf(tableName));
-//        try {
-//            ResultScanner rs = table.getScanner(new Scan());
-//            for (Result r : rs) {
-//                System.out.println(r.getRow());
-////                System.out.println("获得到rowkey:" + new String(r.getRow()));
-////                for (Cell keyValue : r.rawCells()) {
-////                    System.out.println("列：" + Bytes.toString(CellUtil.cloneFamily(keyValue))+":" + Bytes.toString(CellUtil.cloneQualifier(keyValue)) + "====值:" + Bytes.toString(CellUtil.cloneValue(keyValue)));
-////                }
-//            }
-//            rs.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
 
     /**
@@ -68,8 +47,7 @@ public class HbaseDemo {
             // 根据rowkey查询
             Get scan = new Get(rowId.getBytes());
             Result r = table.get(scan);
-//            System.out.println("获得到rowkey:" + new String(r.getRow()));
-            System.out.println("获得到rowkey:" + Bytes.toString(r.getRow()));
+            System.out.println("rowkey: " + Bytes.toLong(r.getRow()));
             for (Cell keyValue : r.rawCells()) {
                 System.out.println("列：" + new String(CellUtil.cloneFamily(keyValue)) + ":" + new String(CellUtil.cloneQualifier(keyValue)) + "====值:" + new String(CellUtil.cloneValue(keyValue)));
             }
@@ -84,11 +62,15 @@ public class HbaseDemo {
      * 查询所有数据
      */
     public static void queryAll(String tableName) throws Exception {
-        Table table = connection.getTable(TableName.valueOf(tableName.getBytes()));
+        Table table = connection.getTable(TableName.valueOf(tableName));
         try {
             ResultScanner rs = table.getScanner(new Scan());
             for (Result r : rs) {
-                System.out.println("获得到rowkey:" + Bytes.toString(r.getRow()));
+                /**
+                 * 注意,rowkey插入时是Long类型,如果接收使用 Bytes.toString(r.getRow()) 或者
+                 * new String(r.getRow())接收, 会出现乱码, 此处应该使用 Bytes.toLong(r.getRow()) 接收
+                 */
+                System.out.println("rowkey: " + Bytes.toLong(r.getRow()));
                 for (Cell keyValue : r.rawCells()) {
                     System.out.println("列：" + new String(CellUtil.cloneFamily(keyValue))+":"+new String(CellUtil.cloneQualifier(keyValue)) + "====值:" + new String(CellUtil.cloneValue(keyValue)));
                 }
@@ -98,6 +80,4 @@ public class HbaseDemo {
             e.printStackTrace();
         }
     }
-
-
 }
