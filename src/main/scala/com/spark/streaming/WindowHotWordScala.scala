@@ -12,8 +12,11 @@ object WindowHotWordScala {
     val ssc = new StreamingContext(conf, Seconds(5))
 
     val searchLogsDStream = ssc.socketTextStream("localhost", 9988)
+
     val searchWordsDStream = searchLogsDStream.map(_.split(" ")(1))
+
     val searchWordsPairDStream = searchWordsDStream.map(searchWords => (searchWords, 1))
+
     val searchWordsCountsDStream = searchWordsPairDStream.reduceByKeyAndWindow(
       (v1:Int, v2:Int) => v1 + v2,
       Seconds(60),

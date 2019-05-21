@@ -54,7 +54,6 @@ public class UpdateStateByKeyWC {
         // 只会执行一次
         pairs.print();
         System.out.println("----------------------");
-
         /**
          * 此处, 如果直接使用 reduceByKey 算子,需要基于redis、mysql 这种db来实现累加操作
          * 但是 updateStateByKey 就可以通过spark维护一份每个单词的全局统计次数

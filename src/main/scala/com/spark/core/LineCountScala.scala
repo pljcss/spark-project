@@ -9,9 +9,13 @@ object LineCountScala {
 
     val sc = new SparkContext(conf)
 
-    val lines = sc.textFile("/Users/saicao/Desktop/word.txt")
+    val lines = sc.textFile("/Users/saicao/Desktop/file_test/word.txt")
+
+    println(lines.count())
 
     val pairRDD = lines.map(lines => (lines, 1))
+
+    println(pairRDD.groupByKey().count())
 
     val linesCounts = pairRDD.reduceByKey(_+_)
 

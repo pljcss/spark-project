@@ -9,7 +9,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   */
 object TransformationOperationScala {
   def main(args: Array[String]): Unit = {
-    cogroup()
+    join()
   }
 
   def map(): Unit = {
@@ -102,7 +102,10 @@ object TransformationOperationScala {
     val scoreList = Array(
         Tuple2(1, 55),
         Tuple2(2, 98),
-        Tuple2(3, 33))
+        Tuple2(3, 33),
+      Tuple2(1, 55),
+      Tuple2(2, 98),
+      Tuple2(3, 33))
 
     val stuRDD = sc.parallelize(studentList)
     val scoreRDD = sc.parallelize(scoreList)
@@ -110,9 +113,14 @@ object TransformationOperationScala {
     val rdd: RDD[(Int, (String, Int))] = stuRDD.join(scoreRDD)
 
     rdd.foreach(x=>{
-      println(x._1)
-      println(x._2._1)
-      println(x._2._2)
+//      println(x._1)
+//      println(x._2._1)
+//      println(x._2._2)
+
+//      println(x._1, x._2._1, x._2._2)
+      println(x._1 + ", " + x._2._1 + ", " + x._2._2)
+
+
     })
   }
 

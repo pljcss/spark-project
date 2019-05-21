@@ -19,6 +19,8 @@ public class LineCount {
 
         JavaSparkContext jsc = new JavaSparkContext(conf);
 
+        jsc.setLogLevel("ERROR");
+
         JavaRDD<String> rdd = jsc.textFile("/Users/saicao/Desktop/word.txt");
 
 
