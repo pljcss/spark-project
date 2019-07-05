@@ -1,5 +1,6 @@
 package com.scala.test
 
+
 object Test1 {
   def main(args: Array[String]): Unit = {
 

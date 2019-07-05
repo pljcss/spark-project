@@ -32,6 +32,8 @@ public class HbaseDemo {
         queryAll("smartcommunity");
         System.out.println("------");
         queryByRowId("smartcommunity", "ss");
+
+
     }
 
 
