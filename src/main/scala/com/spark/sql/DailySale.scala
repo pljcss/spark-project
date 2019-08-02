@@ -41,8 +41,5 @@ object DailySale {
     userAccessLogDF.groupBy("date").agg('date, sum('sale_count)).map(row => Row(row(1), row(2)))
       .collect().foreach(println)
 
-
-
-
   }
 }
